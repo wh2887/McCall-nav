@@ -185,4 +185,4 @@ $(document).on("keypress", function (e) {
   }
 });
 },{}]},{},["epB2"], null)
-//# sourceMappingURL=/main.d6b68b7e.js.map
+//# sourceMappingURL=https://wh2887.github.io/McCall-nav/dist/main.d6b68b7e.js.map
