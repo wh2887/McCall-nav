@@ -3,8 +3,8 @@ const $lastLi = $siteList.find("li.last");
 const x = localStorage.getItem("x");
 const xObject = JSON.parse(x);
 const hasMap = xObject || [
-  { logo: "A", logoType: "text", url: "https://www.acfun.cn" },
-  { logo: "B", logoType: "image", url: "https://www.bilibili.com" },
+  { logo: "A", url: "https://www.google.com/" },
+  { logo: "B", url: "https://www.bilibili.com" },
 ];
 const simplifyUrl = (url) => {
   return url
@@ -18,8 +18,13 @@ const render = () => {
   hasMap.forEach((node, index) => {
     const $li = $(`
                   <li>
+                      <div class="edit">
+                        <svg class="icon">
+                          <use xlink:href="#icon-edit"></use>
+                        </svg>
+                      </div>
                       <div class="logo">${node.logo}</div>
-                      <div class="link">${simplifyUrl(node.url)}</div>
+                      <div class="link hide">${simplifyUrl(node.url)}</div>
                       <div class='close'>
                         <svg class="icon">
                           <use xlink:href="#icon-searchclose"></use>
@@ -33,6 +38,21 @@ const render = () => {
       e.stopPropagation(); //阻止冒泡
       hasMap.splice(index, 1);
       render();
+    });
+    $li.on("click", ".edit", (e) => {
+      e.stopPropagation(); //阻止冒泡
+      let url = "https://" + window.prompt("您要修改成什么网址？");
+      console.log(url);
+      if (url !== "https://" + null) {
+        console.log("hi");
+        hasMap.splice(index, 1, {
+          logo: simplifyUrl(url)[0], //.toUpperCase()
+          logoType: "text",
+          url: url,
+        });
+      }
+      render();
+      console.log(hasMap);
     });
   });
 };
@@ -50,7 +70,6 @@ $(".addButton").on("click", () => {
   });
   render();
 });
-
 window.onbeforeunload = () => {
   const string = JSON.stringify(hasMap);
   window.localStorage.setItem("x", string);

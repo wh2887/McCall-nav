@@ -94,6 +94,12 @@ main {
     margin-right: 25px;
   }
 }
+.siteList .edit {
+  position: absolute;
+  top: -1px;
+  left: 2px;
+  cursor: default;
+}
 .siteList .logo {
   width: 64px;
   height: 64px;
@@ -101,25 +107,31 @@ main {
   justify-content: center;
   align-items: center;
   font-size: 54px;
+
   text-transform: uppercase; /*全大写*/
 }
 
 .siteList .link {
   font-size: 14px;
-  margin-top: 4px;
+  margin-top: 2px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .siteList .close {
-  position: absolute;
-  top: -3px;
-  right: 1px;
   display: none;
-  cursor: default;
 }
-.siteList li:hover .close {
-  display: block;
+@media (min-width: 500px) {
+  .siteList .close {
+    position: absolute;
+    top: -3px;
+    right: 1px;
+    display: none;
+    cursor: default;
+  }
+  .siteList li:hover .close {
+    display: block;
+  }
 }
 .siteList .addButton {
   display: flex;

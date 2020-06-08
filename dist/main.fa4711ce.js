@@ -124,11 +124,9 @@ var x = localStorage.getItem("x");
 var xObject = JSON.parse(x);
 var hasMap = xObject || [{
   logo: "A",
-  logoType: "text",
-  url: "https://www.acfun.cn"
+  url: "https://www.google.com/"
 }, {
   logo: "B",
-  logoType: "image",
   url: "https://www.bilibili.com"
 }];
 
@@ -139,7 +137,7 @@ var simplifyUrl = function simplifyUrl(url) {
 var render = function render() {
   $siteList.find("li:not(.last)").remove();
   hasMap.forEach(function (node, index) {
-    var $li = $("\n                  <li>\n                      <div class=\"logo\">".concat(node.logo, "</div>\n                      <div class=\"link\">").concat(simplifyUrl(node.url), "</div>\n                      <div class='close'>\n                        <svg class=\"icon\">\n                          <use xlink:href=\"#icon-searchclose\"></use>\n                        </svg>\n                      </div>\n                  </li>")).insertBefore($lastLi);
+    var $li = $("\n                  <li>\n                      <div class=\"edit\">\n                        <svg class=\"icon\">\n                          <use xlink:href=\"#icon-edit\"></use>\n                        </svg>\n                      </div>\n                      <div class=\"logo\">".concat(node.logo, "</div>\n                      <div class=\"link hide\">").concat(simplifyUrl(node.url), "</div>\n                      <div class='close'>\n                        <svg class=\"icon\">\n                          <use xlink:href=\"#icon-searchclose\"></use>\n                        </svg>\n                      </div>\n                  </li>")).insertBefore($lastLi);
     $li.on("click", function () {
       window.open(node.url);
     });
@@ -148,6 +146,25 @@ var render = function render() {
 
       hasMap.splice(index, 1);
       render();
+    });
+    $li.on("click", ".edit", function (e) {
+      e.stopPropagation(); //阻止冒泡
+
+      var url = "https://" + window.prompt("您要修改成什么网址？");
+      console.log(url);
+
+      if (url !== "https://" + null) {
+        console.log("hi");
+        hasMap.splice(index, 1, {
+          logo: simplifyUrl(url)[0],
+          //.toUpperCase()
+          logoType: "text",
+          url: url
+        });
+      }
+
+      render();
+      console.log(hasMap);
     });
   });
 };
@@ -185,4 +202,4 @@ $(document).on("keypress", function (e) {
   }
 });
 },{}]},{},["epB2"], null)
-//# sourceMappingURL=https://wh2887.github.io/McCall-nav/dist/main.d6b68b7e.js.map
+//# sourceMappingURL=https://wh2887.github.io/McCall-nav/dist/main.fa4711ce.js.map
